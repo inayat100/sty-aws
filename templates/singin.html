@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}User singin{% endblock title %}
+{% block singinactive %}active {% endblock singinactive %}
+
+{% block body %}
+<div class="container-fluid">
+<div class="row">
+    <div class="col-6 mx-auto">
+        <form method="post">
+            {% csrf_token %}
+{{form.as_p}}
+        <input type="submit" value="Log In" class="btn btn-primary">
+        <a href="{% url 'singup' %}" class="btn btn-success">Singup</a>
+            </form>
+
+
+</div>
+</div>
+</div>
+    {% endblock body %}

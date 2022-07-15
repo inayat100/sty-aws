@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Contact page{% endblock title %}
+
+{% block contactactive %}active {% endblock contactactive %}
+{% block body %}
+
+
+   <div class="fm-img m-0">
+      <div class="container ">
+        <div class="p-4  ">
+            <div class="col-lg-6 mx-auto p-3 ">
+                 <div class="fs-3 text-center">
+                 <h4 style="color:white;">How can i help YOu </h4>
+                    </div>
+
+                <form method="post" action="">
+                     {% csrf_token %}
+                <div class="form-group w-100">
+        {{form.as_p}}
+
+
+         <input type="submit" class="cont-btn btn-success ml-5 mx-auto"  value="submit">
+
+      </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+{% endblock body %}
+
+
+
+
+
+
+<!-- <label for="name">your user name</label>-->
+<!--        <input type="file" name="name" class="form-control" id="name"  placeholder="Enter your user name">-->
+
+<!--        <label for="email">Email address</label>-->
+<!--        <input type="email" name="email" class="form-control" id="email"  placeholder="Enter your email">-->
+
+<!--        <label for="fname">first name</label>-->
+<!--        <input type="text" name="fname" class="form-control" id="fname"  placeholder="Enter your first name">-->
+
+<!--        <label for="lname">last name</label>-->
+<!--        <input type="text" name="lname" class="form-control" id="lname"  placeholder="Enter your last name">-->
+
+<!--        <label for="pass1">Password</label>-->
+<!--        <input type="password" name="password1" class="form-control" id="pass1"  placeholder="Enter your password">-->
+
+<!--        <label for="pass2">re-Password</label>-->
+<!--        <input type="password" name="password2" class="form-control" id="pass2"  placeholder="Enter your conform password">-->

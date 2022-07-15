@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Your Profile{% endblock title %}
+{% block profileactive %} active {% endblock profileactive %}
+
+{% block body %}
+<style>
+    .proimg{
+        width:20vw;
+        height: 10vh;
+        border-radius: 50%;
+        margin-top: 15px;
+    }
+    .tl{
+        padding: 10px;
+    font-weight: bolder;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 2vw;
+    margin: 5px;
+    text-decoration: none;
+    color: black;
+}
+.pro{
+    
+    
+    color: rgb(72, 127, 172);
+    font-size: 2vw;
+    margin: 3px;
+    border-radius: 20%;
+    text-align: center;
+    font-weight: bolder;
+    background-color: #dddee680;
+    width: auto;
+    text-decoration: none;
+}
+@media(min-width:600px){
+    .proimg{
+        width:18vw;
+        height: 10vh;
+        border-radius: 50%;
+        margin-top: 15px;
+    }
+    .pro{
+        padding: 5px;
+        font-size:20px;
+        margin: 5px;
+    }
+}
+@media(min-width:1000px){
+    .proimg{
+        width:9vw;
+        height: 18vh;
+        border-radius: 50%;
+        margin-top: 15px;
+    }
+    .pro{
+        padding: 5px;
+        margin: 5px;
+        font-size:20px;
+    }
+}
+
+    
+    </style>
+
+<div class="container d-flex flex-column">
+    <div class="d-flex justify-content-center flex-column align-items-center">
+        {% if all %}
+        {% for p in all %}
+        <div class="d-flex justify-content-center align-items-center">
+        <img src="{{ p.img.url }}" class="proimg">
+        <a href="{% url 'full_post' p.id %}" class="tl">{{p.title}}</a>
+        <a class="pro" href="{% url 'update' p.id %}">Update</a>
+        <form method="post" action="{% url 'delete' p.id %}">
+            {% csrf_token %}
+        
+                <input class="pro" style="background-color: black;" type="submit" value="Delete">
+    </form>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div style="text-align: center;">
+        <h3>Your profile is empty...</h3>
+        <h4>please write your post.....</h4>
+    </div>
+    {% endif %}
+     </div>
+</div>
+
+
+{% endblock body %}

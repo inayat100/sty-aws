@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+{% block title %}Searching....{% endblock title %}
+{% load likes %}
+{% block body %}
+<style>
+  img {
+    width: 100%;
+    height: 400px;
+    display: block;
+  }
+</style>
+  <!-- header -->
+  <header>
+    <div class="banner">
+      <div class="container">
+        <h1 class="banner-title">
+          <span>Share</span> Your Thoughts
+        </h1>
+        <p>Everything you want to share about your thoughts and ideas</p>
+        <form method="get" action="{% url 'search' %}">
+          <input type="text" class="search-input" placeholder="find your food . . ." name="search">
+          <button type="submit" class="search-btn">
+            <!-- <i class="fas fa-search"></i> -->
+            ok
+          </button>
+        </form>
+      </div>
+    </div>
+  </header>
+  <!-- end of header -->
+
+  <!-- design -->
+  <section class="design" id="design">
+    <div class="container">
+      <div class="title">
+        <h2>Web Development & Designs</h2>
+      <p>recent  designs on this blog</p>
+      </div>
+
+      <div class="design-content ">
+{% for s in se %}
+       <div class="design-item test">
+          <div class="design-img">
+
+            {% if s.img.url %}
+            <img src="{{ s.img.url }}" alt="">
+            {% else %}
+              <img src="{% static 'images/art-design-5.jpg' %}" alt="">
+            {% endif %}
+
+              {% if user.is_authenticated %}
+               {% if s|like_unlike:request.user.id %}
+
+               <span>
+                <form method="post" action="{% url 'like' %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="home" value="{{s.id}}">
+                  <button id="bt1" type="submit" style="background-color: #2b2b2b; color: white; border: none;">
+                    <i class="far fa-heart" style="color:red;"></i> {{s|total_like}}</button>
+                </form>
+              </span>
+
+            {% else %}
+
+            <span>
+            <form method="post" action="{% url 'like' %}">
+              {% csrf_token %}
+              <input type="hidden" name="home" value="{{s.id}}">
+              <button  class="lbt" type="submit" style="background-color: #2b2b2b; color: white; border: none;">
+                <i class="far fa-heart" style="font-weight: 600; color:red;"></i>
+                {{s|total_like}}</button>
+            </form>
+          </span>
+
+              {% endif %}
+              {% else %}
+
+             <span> <a href="{% url 'like'%}"  style="text-decoration: none; color:white;">
+              <i class="far fa-heart" style="color:red;"></i> {{s|total_like}}</a></span>
+                {% endif %}
+
+            <span>{{s.user}}</span>
+          </div>
+          <div class="design-title">
+            <a href="{% url 'full_post' s.id %}">{{s.title}}</a>
+          </div>
+        </div>
+     {% endfor %}
+
+      </div>
+    </div>
+  </section>
+  <!-- end of design -->
+<!-- <div class="but">
+<button id="bt" class="bt">more post</button>
+</div> -->
+
+
+
+
+
+  <!-- footer -->
+<!--   <footer style="padding: 15px; background-color: #878787;" id="footer">
+    <div class="social-links" style="margin-bottom: 5px;">
+      <a href="https://www.facebook.com/inayat.rasool.752"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://wa.me/+918171415434"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://instagram.com/inayat__01?utm_medium=copy_link"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/inayat-rasool-a1a7991b3"><i class="fab fa-linkedin"></i></a>
+    </div>
+    <span>Share Your Thoughts Blog</span> 
+  </footer> -->
+  <!-- end of footer -->
+
+  <!-- <script>
+    var test = document.getElementsByClassName('test');
+    var btn =  document.getElementById('bt');
+    var likes =  document.getElementById('likes');
+    var cont = 3
+
+    // likes.innerText=100;
+
+    console.log(test)
+
+    btn.addEventListener("click", function(){
+    for(var i = cont; i<cont+3;i++){
+        test[i].style.display = 'inline-block';
+    }
+    cont += 3
+
+    if (cont >= test.length){
+
+      btn.style.display = 'none';
+    }
+});
+  </script> -->
+
+
+{% endblock body %}

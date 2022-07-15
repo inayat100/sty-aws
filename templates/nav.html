@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #logo{
+           border: 1px solid black;
+            margin: 4px;
+            width: 50px;
+            display: inline-block;
+        }
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+            text-align: center;
+        }
+
+        .nv {
+            width: auto;
+            border: 1px solid black;
+            margin: 4px;
+        }
+
+        @media(max-width:400px){
+            .navbar{
+                display: none;
+                transition: all;
+                transition-duration: 5s;
+                display: inline-block;
+            }
+        }
+
+        #opensidebar:checked ~ .navbar{
+            display: block;
+            transform: skew(40deg);
+    
+}
+    </style>
+</head>
+
+<body style="background-color: red;">
+    
+    
+    <div id="logo" class="nv">hello</div>
+    <div class="navbar">
+        <div class="nv">home</div>
+        <div class="nv">contact</div>
+        <div class="nv">about</div>
+        <div class="nv">blog</div>
+        <div class="nv">post</div>
+    </div>
+    <h2>hello</h2>
+
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Full Post....{% endblock title %}
+
+<link rel="stylesheet" href="{% static 'style.css' %}">
+{% load likes %}
+{% block body %}
+
+<style>
+    .user-img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .user {
+        margin-left: 10px;
+    }
+
+    .comment {
+        font-size: 20px;
+        font-weight: 600;
+        font-family: serif;
+        margin-bottom: 0px;
+    }
+
+    .reply-r {
+        font-size: 15px;
+        font-weight: 600;
+        font-family: unset;
+        margin-bottom: 0px;
+    }
+
+    .reply {
+        margin-left: 10px;
+        margin-bottom: 5px;
+        text-decoration: none;
+        font-style: italic;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .fcb {
+        margin-top: 10px;
+    }
+
+    .us {
+        position: absolute;
+        right: 30px;
+        bottom: -45px;
+        font-size: 25px;
+        font-weight: 900;
+    }
+    @media(max-width:400px){
+        .us {
+        position: absolute;
+        right: 30px;
+        right: 20px;
+        font-size: 15px;
+        font-weight: 700;
+    }
+}
+</style>
+
+
+
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-lg-3 d-lg-block d-none  m-3 ">
+            {% for p in all_post %}
+            <div class="card my-3" style="width: 18rem;">
+                <img src="{{ p.img.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a href="{% url 'full_post' p.id %}" style="color: #000000;
+    text-decoration: none;">{{p.title}}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+        <div class="col-lg-8  m-3">
+            <div style="position: relative;">
+                <img src="{{ post.img.url }}" alt="">
+                <span class="us"> Post By {{post.user}} </span>
+            </div>
+            {% if like %}
+            <form action="{% url 'like' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="like" value="{{post.id}}">
+                <input class="btn btn-primary btn-sm my-3" type="submit" role="button" value="UNLIKE"> <button
+                    class="btn btn-primary btn-sm my-3">{{total_like}}</button>
+            </form>
+            {% else %}
+            <form action="{% url 'like' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="like" value="{{post.id}}">
+                <input class="btn btn-success btn-sm my-3" type="submit" role="button" value="LIKE"> <button
+                    class="btn btn-success btn-sm my-3">{{total_like}}</button>
+            </form>
+            {% endif %}
+
+            <h3>{{post.title}}</h3>
+            {{post.post| safe}}
+
+            <div class="m-3">
+                <form method="get" action="{% url 'comment' %}">
+                    <textarea name="comment" id="name" class="form-control" style="background-color: #30080817; height: 110px;"></textarea>
+                    <input type="hidden" name="post_id" value="{{post.id}}">
+                    <input type="submit" class="btn btn-success ml-5 m-2" value="Comments"
+                        style="background-color: #000000;">
+                        <span class="ml-5 m-2" style="font-size: 30px; font-weight: 800;">{{comment.count}}</span>
+                </form>
+                {% for c in comment %}
+                <div class="d-flex flex-row align-items-center fcb">
+                    <img src="{% static 'images/user.jpg' %}" alt="" class="user-img">
+                    <b class="user"> {{c.user}} </b> <b style="margin-left: 8px;">{{ c.date|timesince }} ago</b>
+                </div>
+
+                <p class="comment">{{c.comment}}</p>
+                <a class="reply" data-bs-toggle="collapse" href="#collapseExample{{c.id}}" role="button"
+                    aria-expanded="false" aria-controls="collapseExample">reply</a>
+
+                {% for r in reply %}
+                {% if c.id|user_reply:r.comment.id %}
+                <div class="mx-5">
+                    <div class="d-flex flex-row align-items-center fcb">
+                        <img src="{% static 'images/reply.jpg' %}" alt="" class="user-img">
+                        <b class="user"> {{r.user}}</b> <b style="margin-left: 8px;">{{ r.date|timesince }} ago</b>
+                    </div>
+                    <p class="reply-r">{{r.reply}}</p>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <div class="collapse" id="collapseExample{{c.id}}">
+
+                    <form method="get" action="{% url 'reply' %}">
+                        <input type="text" class="form-control w-75" name="reply">
+                        <input type="hidden" value="{{c.id}}" name="comment_id">
+                        <input type="hidden" value="{{post.id}}" name="post_id">
+                        <input type="submit" value="reply" class="btn" style="font-weight: 600;">
+                    </form>
+
+                </div>
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock body %}

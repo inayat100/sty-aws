@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}User Dasebord{% endblock title %}
+
+{% block dashactive %}active {% endblock dashactive %}
+{% block body %}
+
+
+   <div class="fm-img m-0" style="height: 200vh;">
+
+      <div class="container ">
+        <div class="p-4  ">
+            <div class="col-lg-6 mx-auto p-3 ">
+            
+    
+                <form method="post" action="" enctype="multipart/form-data">
+                   {% csrf_token %}
+                <div class="form-group w-100">
+
+                    {{form.as_p}}
+                    {{form.media}}
+                    <input type="submit" class="cont-btn btn-success ml-5 mx-auto"  value="Post..">
+      </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<script>
+    CKEDITOR.replace('post');
+
+
+</script>
+
+      
+{% endblock body %}
