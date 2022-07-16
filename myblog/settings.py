@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 # import cloudinary
 # import cloudinary_storage
-from decouple import config
+
 import os
 from django.contrib.messages import constants as messages
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'r*50(g&w^dl0fk56m2b%eo#tiv2-=6cu)2fc(s1&v#c_haim=^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -165,9 +165,9 @@ STATICFILES_DIRS=[os.path.join(BASE_DIR, 'static'),]
 
 # AWS Bucket integration
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = 'AKIAZPGJISBQDXGPR6TS'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'my-blog-syt'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 AWS_DEFAULT_ACL = 'public-read'
