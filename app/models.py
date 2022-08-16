@@ -5,7 +5,7 @@ from ckeditor.fields import RichTextField
 class POST(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE )
     img = models.ImageField(upload_to='media/',blank=True,null=True,default='media/df.jpg')
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=300)
     post = RichTextField()
     date = models.DateTimeField(auto_now_add=True)
     like = models.ManyToManyField(User,related_name='like',blank=True,)
