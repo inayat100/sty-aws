@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 # import cloudinary
 # import cloudinary_storage
-from decouple import config
+
 import os
 from django.contrib.messages import constants as messages
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -26,7 +26,7 @@ SECRET_KEY = 'r*50(g&w^dl0fk56m2b%eo#tiv2-=6cu)2fc(s1&v#c_haim=^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = False
+DEBUG = False #this use
 ALLOWED_HOSTS = ['*']
 
 
