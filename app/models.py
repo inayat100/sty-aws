@@ -2,9 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 # Create your models here.
+def uplo(instance,filename): 
+    filename,extension = filename.split('.')
+    fname = f"{instance.user}_{instance.title}"
+    fname = fname.replace("/","")
+    return 'media/%s.%s' % (fname,extension)  
+
+
 class POST(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE )
-    img = models.ImageField(upload_to='media/',blank=True,null=True,default='media/df.jpg')
+    img = models.ImageField(upload_to=uplo,blank=True,null=True,default='media/df.jpg')
     title = models.CharField(max_length=300)
     post = RichTextField()
     date = models.DateTimeField(auto_now_add=True)
